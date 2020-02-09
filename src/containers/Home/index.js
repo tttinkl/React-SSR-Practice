@@ -2,16 +2,15 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getHomeList } from './store/actions';
 
-
 const Home = (props) => {
   useEffect(() => {
-    props.getHomeList();
+    props.getHomeList(false);
   },[]);
 
   return (
     <div>
       <div>home</div>
-      {props.newsList && props.newsList.map( li => (
+      {props.list && props.list.map( li => (
         <div>{li.detail}</div>
       ))}
       <button onClick={() => showList()}></button>
@@ -19,9 +18,11 @@ const Home = (props) => {
   )
 }
 
-
+Home.loadData = (store) => {
+  return store.dispatch(getHomeList(true));
+}
 const mapStateToProps = state => ({
-  newsList: state.home.newsList
+  list: state.home.newsList
 })
 
 const mapDispatchToProps = dispatch => ({

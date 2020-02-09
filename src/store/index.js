@@ -16,10 +16,14 @@ const enhancer = composeEnhancers(
   applyMiddleware(thunk)
   // other store enhancers if any
 );
-const store = createStore(reducer, enhancer);
-const getStore = () => {
+
+
+export const getStore = () => {
   return createStore(reducer, enhancer);
 }
 
+export const getClientStore = () => {
+  const defaultState = window.context.state;
+  return createStore(reducer, defaultState, enhancer);
+}
 
-export default getStore;
