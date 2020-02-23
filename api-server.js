@@ -24,5 +24,8 @@ app.get('/api/list', (req, res) => {
   ];
   res.json(list);
 });
+// app.get('/api/isLogin');
 
+// app.get('/api/login');
+// app.get('/api/logout');
 app.listen(3010, () => {console.log("listening 3010...")});

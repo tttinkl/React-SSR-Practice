@@ -1,9 +1,14 @@
-import { createStore, applyMiddleware, combineReducers, compose} from 'redux';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import { reducer as homeReducer } from '../containers/Home/store/'
+import clientAxios from '../client/request';
+import { reducer as headerReducer } from '../components/Header/store/index.js';
+import { reducer as homeReducer } from '../containers/Home/store/';
+import serverAxios from '../server/request';
+
 
 const reducer = combineReducers({
-  home: homeReducer
+  home: homeReducer,
+  header: headerReducer
 })
 const composeEnhancers =
   typeof window === 'object' &&
@@ -12,18 +17,21 @@ const composeEnhancers =
       // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
     }) : compose;
 
-const enhancer = composeEnhancers(
-  applyMiddleware(thunk)
+const serverEnhancer = composeEnhancers(
+  applyMiddleware(thunk.withExtraArgument(serverAxios))
   // other store enhancers if any
 );
 
-
+const clientEnhancer = composeEnhancers(
+  applyMiddleware(thunk.withExtraArgument(clientAxios))
+  // other store enhancers if any
+);
 export const getStore = () => {
-  return createStore(reducer, enhancer);
+  return createStore(reducer, serverEnhancer);
 }
 
 export const getClientStore = () => {
   const defaultState = window.context.state;
-  return createStore(reducer, defaultState, enhancer);
+  return createStore(reducer, defaultState, clientEnhancer);
 }
 

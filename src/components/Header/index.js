@@ -1,10 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-const Header = () => (
+import { connect } from 'react-redux';
+
+const Header = (props) => {
+    console.log(props)
+    return (
     <div>
       <Link to="/">Home</Link>
       <br />
-      <Link to="/login">Login</Link>
+      {
+      props.login ? <><Link to='/translate'>翻译列表</Link>
+        <br />
+        <Link to='/logout'>Logout</Link></> : <><Link to="/login">Login</Link> <br /></>
+      }
     </div>
-);
-export default Header;
+    )
+};
+
+const mapState = (state) => ({
+  login: state.header.login
+})
+export default connect(mapState, null)(Header);

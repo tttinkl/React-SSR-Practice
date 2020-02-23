@@ -1,5 +1,3 @@
-import { Route } from 'react-router-dom';
-import React from 'react';
 import Home from './containers/Home';
 import Login from './containers/Login';
 import App from './App.js'
