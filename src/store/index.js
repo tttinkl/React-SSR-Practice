@@ -17,8 +17,8 @@ const composeEnhancers =
       // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
     }) : compose;
 
-const serverEnhancer = composeEnhancers(
-  applyMiddleware(thunk.withExtraArgument(serverAxios))
+const serverEnhancer = (req) =>  composeEnhancers(
+  applyMiddleware(thunk.withExtraArgument(serverAxios(req)))
   // other store enhancers if any
 );
 
@@ -26,8 +26,8 @@ const clientEnhancer = composeEnhancers(
   applyMiddleware(thunk.withExtraArgument(clientAxios))
   // other store enhancers if any
 );
-export const getStore = () => {
-  return createStore(reducer, serverEnhancer);
+export const getStore = (req) => {
+  return createStore(reducer, serverEnhancer(req));
 }
 
 export const getClientStore = () => {

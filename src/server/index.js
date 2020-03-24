@@ -13,7 +13,7 @@ app.use('/api',proxy('http://localhost:3010', {
 app.use(express.static('public'))
 
 app.get('*', (req, res) => {
-  const store = getStore();
+  const store = getStore(req);
   const matchedRoutes = matchRoutes(routes, req.path);
   const promises = [];
   matchedRoutes.forEach(item => {

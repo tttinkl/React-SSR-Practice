@@ -1,7 +1,17 @@
+import { CHANGE_LOGIN } from './constans'
 const defaultState = {
-    login: true
+    login: false
 }
 const reducer = (state = defaultState, action) => {
-    return state
+    switch (action.type) {
+        case CHANGE_LOGIN:
+           return {
+               ...state,
+               login: action.value
+           }
+        default:
+            return state
+    }
+    
 }
 export default reducer;

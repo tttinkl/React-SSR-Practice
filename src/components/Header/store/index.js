@@ -1,3 +1,3 @@
 import reducer from "./reducer.js"
-
-export {reducer}
+import * as actions from './actions';
+export { reducer, actions };

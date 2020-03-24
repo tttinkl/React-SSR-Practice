@@ -11,7 +11,7 @@ const Home = (props) => {
     <div>
       <div>home</div>
       {props.list && props.list.map( li => (
-        <div>{li.detail}</div>
+        <div key={li.detail}>{li.detail}</div>
       ))}
       <button onClick={() => showList()}></button>
     </div>
